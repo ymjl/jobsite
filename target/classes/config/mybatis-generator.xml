@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<!-- 数据库的JDBC驱动的jar包地址 -->
+	<classPathEntry
+		location="D:\repository\mysql-connector-java-5.1.40-bin.jar" />
+
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+
+		<property name="javaFileEncoding" value="UTF-8" />
+
+		<!-- 是否去除自动生成的注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<!-- 配置数据库信息 -->
+		<jdbcConnection connectionURL="jdbc:mysql://127.0.0.1/jobsite"
+			driverClass="com.mysql.jdbc.Driver" password="123456" userId="root">
+			<property name="remarksReporting" value="true"></property>
+		</jdbcConnection>
+
+		<!-- java类型处理器，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型 -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- java模型创建器 -->
+		<javaModelGenerator targetPackage="com.nit.jobsite.model"
+			targetProject="jobsite/src/main/java">
+			<!-- 从数据库返回的值被清理前后的空格 -->
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 生成sql映射文件 -->
+		<sqlMapGenerator targetPackage="com.nit.jobsite.mapping"
+			targetProject="jobsite/src/main/java">
+		</sqlMapGenerator>
+
+		<!-- 生成Mapper接口 -->
+		<javaClientGenerator targetPackage="com.nit.jobsite.dao"
+			targetProject="jobsite/src/main/java" type="XMLMAPPER" />
+
+		<!-- table配置信息 -->
+<!-- 		<table schema="jobsite" tableName="tb_member" domainObjectName="Member"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			驼峰命名
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="MemberId" sqlStatement="MySql"
+				identity="true" />
+		</table> -->
+		
+<!-- 		<table schema="jobsite" tableName="tb_applicant" domainObjectName="Applicant"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			驼峰命名
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="ApplicantId" sqlStatement="MySql"
+				identity="true" />
+		</table>
+		<table schema="jobsite" tableName="tb_company" domainObjectName="Company"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			驼峰命名
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="CompanyId" sqlStatement="MySql"
+				identity="true" />
+		</table>
+		<table schema="jobsite" tableName="tb_info" domainObjectName="Info"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			驼峰命名
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="InfoId" sqlStatement="MySql"
+				identity="true" />
+		</table>
+		<table schema="jobsite" tableName="tb_recruitment" domainObjectName="Recruitment"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			驼峰命名
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="RecruitmentId" sqlStatement="MySql"
+				identity="true" />
+		</table> -->
+		<table schema="jobsite" tableName="tb_picture" domainObjectName="Picture"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<!-- 驼峰命名 -->
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="PictureID" sqlStatement="MySql"
+				identity="true" />
+		</table>
+	</context>
+</generatorConfiguration>

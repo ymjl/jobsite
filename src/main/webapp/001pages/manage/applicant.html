@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>简历</title>
+	<link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="manage.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="manage.css">
+	<link rel="stylesheet" type="text/css" href="../../front-plugin/datetimepicker/bootstrap-datetimepicker.min.css">
+
+</head>
+<body>
+	<div class="sideTitle" id="applicant">
+<!-- 		<div id="side_tools" >
+	<div id="select_tool" class="col-md-4">
+		<select id="applicantSelect" class="form-control" name="applicantName">
+			
+		</select>				
+	</div>
+	<div id="add_tool" class="col-md-4">
+		<button type="button" class="btn btn-info" id="addApplicant">添加简历</button>
+	</div>
+	<div id="save_tool" class="col-md-4">
+		<button type="button" class="btn btn-success">保存简历</button>
+	</div>
+
+
+</div> -->
+
+		<div id="applicant_content" class="col-md-12">
+		<form>
+			<div class="col-md-2 side_label" >
+			
+		
+				<p><b>个</b></p>
+				<p><b>人</b></p>
+				<p><b>资</b></p>
+				<p><b>料</b></p>
+							
+
+				
+			</div>
+			<div class="col-md-10">
+				<div id="col-1" class="col-md-6">
+					<div class="form-group col-md-7">
+						<label>姓名</label>
+						<input type="text" name="name" class="form-control" style="width: 140px">
+					</div>
+
+					<div class="form-group col-md-7">
+						<label>民族</label>
+						<input class="form-control" name="applicantNation" style="width: 110px">
+						
+					</div>
+
+					<div class="form-group col-md-7">
+						<label>出生日期</label>
+			    			<input  type="text" size="16" value="1995-01-01" style="width: 110px" id="userBirthday" class="form-control">
+			    			<!-- <span class="add-on"><i class="icon-th"></i></span> -->
+						
+					</div>	
+
+					<div class="form-group col-md-7">
+						<label>毕业院校</label>
+						<input type="text" name="applicantSchool" class="form-control">
+					</div>	
+
+					<div class="form-group col-md-7">
+						<label>专业</label>
+						<input type="text" name="applicantMajor" class="form-control">
+					</div>						
+					<div class="form-group col-md-7">
+						<label>联系电话</label>
+						<input type="text" name="applicantPhone" class="form-control" style="width: 180px">
+					</div>	
+					<div class="form-group col-md-7">
+						<label>QQ号码</label>
+						<input type="text" name="applicantQQ" class="form-control" style="width: 180px">
+					</div>					
+
+
+
+
+				</div>
+
+
+				<div id="col-2" class="col-md-6">
+	
+					<div class="form-group col-md-12">
+					<label >性别</label>
+					<input type="text" name="applicantSex" class="form-control" style="width: 110px">
+	
+					</div>
+
+					<div class="form-group col-md-7" 	>
+						<label>籍贯</label>
+						<input type="text" name="homePlace" class="form-control">
+					</div>
+
+			
+					<div class="form-group col-md-7">
+						<label>政治面貌</label>
+
+						<input class="form-control" name="applicantPolitics" style="width: 130px">
+
+						
+					</div>	
+					
+			
+					<div class="form-group col-md-7 ">
+						<label>学历</label>
+						<input class="form-control" name="applicantEducation" style="width: 130px">
+						
+					</div>			
+			
+					<div class="form-group col-md-7">
+						<label>英语水平</label>
+						<input type="text" name="applicantEnglish" class="form-control" style="width: 130px">
+					</div>	
+
+					<div class="form-group col-md-7">
+						<label>电子邮件</label>
+						<input type="email" name="applicantEmail" class="form-control"  style="width: 200px">
+					</div>
+
+
+					<div class="form-group col-md-12">
+						<label>家庭住址</label>
+						<input type="text" name="applicantAddress" class="form-control">
+					</div>							
+
+
+				</div>
+	
+
+			</div>
+
+			<div class="form-group col-md-12">
+				<div class="col-md-2 side_label">
+				
+			
+					<p><b>学</b></p>
+					<p><b>习</b></p>
+					<p><b>经</b></p>
+					<p><b>历</b></p>
+					
+					
+				</div>
+				<div class="col-md-8" style="margin-top: 70px">
+					<textarea name="applicantStudy" class="form-control" maxlength="512" rows="7" wrap="soft"></textarea>
+					
+				</div>
+				
+			</div>
+
+			<div class="form-group col-md-12">
+				<div class="col-md-2 side_label">
+				
+			
+					<p><b>项</b></p>
+					<p><b>目</b></p>
+					<p><b>经</b></p>
+					<p><b>验</b></p>
+					
+					
+				</div>
+				<div class="col-md-8" style="margin-top: 70px">
+					<textarea name="applicantProject" class="form-control" maxlength="512" rows="7" wrap="soft" ></textarea>
+					
+				</div>
+				
+			</div>
+			<div class="form-group col-md-12">
+				<div class="col-md-2 side_label">
+				
+			
+					<p><b>校</b></p>
+					<p><b>园</b></p>
+					<p><b>荣</b></p>
+					<p><b>誉</b></p>
+					
+					
+				</div>
+				<div class="col-md-8" style="margin-top: 70px">
+					<textarea name="applicantHonor" class="form-control" maxlength="512" rows="7" wrap="soft" ></textarea>
+					
+				</div>
+				
+			</div>
+			<div class="form-group col-md-12">
+				<div class="col-md-2 side_label">
+				
+			
+					<p><b>兴</b></p>
+					<p><b>趣</b></p>
+					<p><b>爱</b></p>
+					<p><b>好</b></p>
+					
+					
+				</div>
+				<div class="col-md-8" style="margin-top: 70px">
+					<textarea name="applicantHobby" class="form-control" maxlength="512" rows="7" wrap="soft" ></textarea>
+					
+				</div>
+				
+			</div>
+
+
+
+		</form>
+
+			
+		</div>
+
+		
+
+	</div>
+
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="../../front-plugin/bootbox-4.4.0/bootbox.min.js"></script>
+<script src="../../front-plugin/bootstrapValidator-0.5.3/bootstrapValidator.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../../front-plugin/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="../../front-plugin/datetimepicker/bootstrap-datetimepicker.fr.js"></script>
+<script src="showApplicant.js"></script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+th{
+	text-align: center;
+}
+.recruitmentMsg{
+	display: block;
+	border: 2px solid #ededed;
+
+
+
+}
+.recruitmentMsg a:hover{
+	text-decoration:none;
+}
+.recruitmentMsg p{
+	color: #555;
+	font-size: 16px;
+}
+.recruitmentTitle{
+	font-size: 30px;
+	color: #00b38a;
+}

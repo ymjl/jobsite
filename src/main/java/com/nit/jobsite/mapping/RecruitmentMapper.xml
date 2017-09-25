@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nit.jobsite.dao.RecruitmentMapper">
+  <resultMap id="BaseResultMap" type="com.nit.jobsite.model.Recruitment">
+    <id column="RecruitmentID" jdbcType="INTEGER" property="recruitmentID" />
+    <result column="CompanyID" jdbcType="INTEGER" property="companyID" />
+    <result column="RecruitmentPosition" jdbcType="VARCHAR" property="recruitmentPosition" />
+    <result column="RecruitmentStatus" jdbcType="INTEGER" property="recruitmentStatus" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.nit.jobsite.model.Recruitment">
+    <result column="RecruitmentInfo" jdbcType="LONGVARCHAR" property="recruitmentInfo" />
+  </resultMap>
+  <resultMap id="RecruitmentMsgMap" type="com.nit.jobsite.dto.RecruitmentMsgDto">
+  	  <result column="RecruitmentID" jdbcType="VARCHAR" property="recruitmentID" />
+	  <result column="RecruitmentPosition" jdbcType="VARCHAR" property="recruitmentPosition" />
+	  <result column="RecruitmentInfo" jdbcType="LONGVARCHAR" property="recruitmentInfo" />
+	  <result column="CompanyName" jdbcType="VARCHAR" property="companyName" />
+	  <result column="CompanyEmail" jdbcType="VARCHAR" property="companyEmail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RecruitmentID, CompanyID, RecruitmentPosition, RecruitmentStatus
+  </sql>
+  <sql id="Blob_Column_List">
+    RecruitmentInfo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_recruitment
+    where RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_recruitment
+    where RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nit.jobsite.model.Recruitment">
+    <selectKey keyProperty="recruitmentID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_recruitment (CompanyID, RecruitmentPosition, RecruitmentStatus, 
+      RecruitmentInfo)
+    values (#{companyID,jdbcType=INTEGER}, #{recruitmentPosition,jdbcType=VARCHAR}, #{recruitmentStatus,jdbcType=INTEGER}, 
+      #{recruitmentInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nit.jobsite.model.Recruitment">
+    <selectKey keyProperty="recruitmentID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_recruitment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="companyID != null">
+        CompanyID,
+      </if>
+      <if test="recruitmentPosition != null">
+        RecruitmentPosition,
+      </if>
+      <if test="recruitmentStatus != null">
+        RecruitmentStatus,
+      </if>
+      <if test="recruitmentInfo != null">
+        RecruitmentInfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="companyID != null">
+        #{companyID,jdbcType=INTEGER},
+      </if>
+      <if test="recruitmentPosition != null">
+        #{recruitmentPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentStatus != null">
+        #{recruitmentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recruitmentInfo != null">
+        #{recruitmentInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nit.jobsite.model.Recruitment">
+    update tb_recruitment
+    <set>
+      <if test="companyID != null">
+        CompanyID = #{companyID,jdbcType=INTEGER},
+      </if>
+      <if test="recruitmentPosition != null">
+        RecruitmentPosition = #{recruitmentPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitmentStatus != null">
+        RecruitmentStatus = #{recruitmentStatus,jdbcType=INTEGER},
+      </if>
+      <if test="recruitmentInfo != null">
+        RecruitmentInfo = #{recruitmentInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nit.jobsite.model.Recruitment">
+    update tb_recruitment
+    set CompanyID = #{companyID,jdbcType=INTEGER},
+      RecruitmentPosition = #{recruitmentPosition,jdbcType=VARCHAR},
+      RecruitmentStatus = #{recruitmentStatus,jdbcType=INTEGER},
+      RecruitmentInfo = #{recruitmentInfo,jdbcType=LONGVARCHAR}
+    where RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nit.jobsite.model.Recruitment">
+    update tb_recruitment
+    set CompanyID = #{companyID,jdbcType=INTEGER},
+      RecruitmentPosition = #{recruitmentPosition,jdbcType=VARCHAR},
+      RecruitmentStatus = #{recruitmentStatus,jdbcType=INTEGER}
+    where RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </update>
+  <select id="getRecruitmentMsgList" resultMap="RecruitmentMsgMap">
+  
+  select 
+  a.RecruitmentPosition, a.RecruitmentInfo, b.CompanyName,b.CompanyEmail
+  from tb_recruitment a, tb_company b
+  where a.CompanyID = b.CompanyID
+  
+  
+  
+  
+  </select>
+  
+ <select id="selectRecruitmentByPage" resultMap="RecruitmentMsgMap">
+  
+  select 
+  a.RecruitmentID,a.RecruitmentPosition,a.RecruitmentInfo,b.CompanyName,b.CompanyEmail
+  from tb_recruitment a, tb_company b
+  where a.CompanyID = b.CompanyID limit #{startPos},#{pageSize}
+  </select>
+  <select id="selectRecruitmentByPageAndText" resultMap="RecruitmentMsgMap">
+  
+  select 
+  a.RecruitmentID,a.RecruitmentPosition,a.RecruitmentInfo,b.CompanyName,b.CompanyEmail
+  from tb_recruitment a, tb_company b
+  where a.CompanyID = b.CompanyID and a.RecruitmentPosition like '%${searchText}%' limit #{startPos,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+  </select>
+<select id="getRecruitmentCount" resultType="long">  
+  SELECT COUNT(*) FROM tb_recruitment  
+</select> 
+<select id="getRecruitmentCountAndText" resultType="long">  
+  SELECT COUNT(*) FROM tb_recruitment  where RecruitmentPosition like '%${searchText}%'
+</select> 
+
+
+ <select id="getRecruitmentList" resultMap="BaseResultMap">
+  
+  select 
+  *
+  from tb_recruitment
+  where CompanyID = #{companyID}
+  
+  
+  
+  
+  </select>
+</mapper>

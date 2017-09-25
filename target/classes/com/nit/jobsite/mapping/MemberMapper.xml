@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nit.jobsite.dao.MemberMapper">
+  <resultMap id="BaseResultMap" type="com.nit.jobsite.model.Member">
+    <id column="MemberID" jdbcType="INTEGER" property="memberID" />
+    <result column="LoginName" jdbcType="VARCHAR" property="loginName" />
+    <result column="LoginPwd" jdbcType="VARCHAR" property="loginPwd" />
+    <result column="MemberEmail" jdbcType="VARCHAR" property="memberEmail" />
+    <result column="MemberType" jdbcType="INTEGER" property="memberType" />
+    <result column="RegisterTime" jdbcType="VARCHAR" property="registerTime" />
+  </resultMap>
+  <resultMap type="com.nit.jobsite.dto.LoginTokenDto" id="LoginInfoMap">
+    <result column="LoginName" jdbcType="VARCHAR" property="loginName" />
+    <result column="RegisterTime" jdbcType="VARCHAR" property="registerTime" />
+    <result column="MemberEmail" jdbcType="VARCHAR" property="memberEmail" />
+    <result column="MemberType" jdbcType="INTEGER" property="memberType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MemberID, LoginName, LoginPwd, MemberEmail, MemberType, RegisterTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_member
+    where MemberID = #{memberID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_member
+    where MemberID = #{memberID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nit.jobsite.model.Member">
+    <selectKey keyProperty="memberID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_member (LoginName, LoginPwd, MemberEmail, 
+      MemberType, RegisterTime)
+    values (#{loginName,jdbcType=VARCHAR}, #{loginPwd,jdbcType=VARCHAR}, #{memberEmail,jdbcType=VARCHAR}, 
+      #{memberType,jdbcType=INTEGER}, #{registerTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nit.jobsite.model.Member">
+    <selectKey keyProperty="memberID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="loginName != null">
+        LoginName,
+      </if>
+      <if test="loginPwd != null">
+        LoginPwd,
+      </if>
+      <if test="memberEmail != null">
+        MemberEmail,
+      </if>
+      <if test="memberType != null">
+        MemberType,
+      </if>
+      <if test="registerTime != null">
+        RegisterTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null">
+        #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="memberEmail != null">
+        #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="memberType != null">
+        #{memberType,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nit.jobsite.model.Member">
+    update tb_member
+    <set>
+      <if test="loginName != null">
+        LoginName = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPwd != null">
+        LoginPwd = #{loginPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="memberEmail != null">
+        MemberEmail = #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="memberType != null">
+        MemberType = #{memberType,jdbcType=INTEGER},
+      </if>
+      <if test="registerTime != null">
+        RegisterTime = #{registerTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MemberID = #{memberID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nit.jobsite.model.Member">
+    update tb_member
+    set LoginName = #{loginName,jdbcType=VARCHAR},
+      LoginPwd = #{loginPwd,jdbcType=VARCHAR},
+      MemberEmail = #{memberEmail,jdbcType=VARCHAR},
+      MemberType = #{memberType,jdbcType=INTEGER},
+      RegisterTime = #{registerTime,jdbcType=VARCHAR}
+    where MemberID = #{memberID,jdbcType=INTEGER}
+  </update>
+  <select id="loginCheck" resultType="java.lang.Integer" >
+  select MemberId from tb_member
+  	where LoginName = #{loginName,jdbcType=VARCHAR}
+  	and LoginPwd = #{loginPassword,jdbcType=VARCHAR}
+  </select>
+   <select id="getLoginInfo" parameterType="java.lang.Integer" resultMap="LoginInfoMap">
+    select 
+    MemberID, LoginName, MemberEmail, MemberType,RegisterTime
+    from tb_member
+    where MemberID = #{memberID,jdbcType=INTEGER}
+  </select>
+  <select id="registerCheck" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select 
+    MemberID
+    from tb_member
+    where LoginName = #{loginName,jdbcType=VARCHAR}
+  </select>
+  <select id="getPassword" parameterType="java.lang.Integer" resultType="java.lang.String">
+  select
+  LoginPwd
+  from tb_member
+  where MemberID = #{memberID,jdbcType=INTEGER}
+  
+  
+  </select>
+</mapper>

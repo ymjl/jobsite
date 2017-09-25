@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nit.jobsite.dao.ApplicantMapper">
+  <resultMap id="BaseResultMap" type="com.nit.jobsite.model.Applicant">
+    <id column="ApplicantID" jdbcType="INTEGER" property="applicantID" />
+    <result column="MemberID" jdbcType="INTEGER" property="memberID" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="ApplicantSex" jdbcType="VARCHAR" property="applicantSex" />
+    <result column="ApplicantName" jdbcType="VARCHAR" property="applicantName" />
+    <result column="ApplicantNation" jdbcType="VARCHAR" property="applicantNation" />
+    <result column="HomePlace" jdbcType="VARCHAR" property="homePlace" />
+    <result column="UserBirthday" jdbcType="VARCHAR" property="userBirthday" />
+    <result column="ApplicantPolitics" jdbcType="VARCHAR" property="applicantPolitics" />
+    <result column="ApplicantSchool" jdbcType="VARCHAR" property="applicantSchool" />
+    <result column="ApplicantEducation" jdbcType="VARCHAR" property="applicantEducation" />
+    <result column="ApplicantMajor" jdbcType="VARCHAR" property="applicantMajor" />
+    <result column="ApplicantEnglish" jdbcType="VARCHAR" property="applicantEnglish" />
+    <result column="ApplicantPhone" jdbcType="VARCHAR" property="applicantPhone" />
+    <result column="ApplicantEmail" jdbcType="VARCHAR" property="applicantEmail" />
+    <result column="ApplicantQQ" jdbcType="VARCHAR" property="applicantQQ" />
+    <result column="ApplicantAddress" jdbcType="VARCHAR" property="applicantAddress" />
+    <result column="ApplicantStudy" jdbcType="VARCHAR" property="applicantStudy" />
+    <result column="ApplicantProject" jdbcType="VARCHAR" property="applicantProject" />
+    <result column="ApplicantHonor" jdbcType="VARCHAR" property="applicantHonor" />
+    <result column="ApplicantHobby" jdbcType="VARCHAR" property="applicantHobby" />
+  </resultMap>
+  
+  <resultMap id="ApplicantMsgMap" type="com.nit.jobsite.dto.ApplicantMsgDto">
+    <result column="ApplicantID" jdbcType="INTEGER" property="applicantID" />
+    <result column="MemberID" jdbcType="INTEGER" property="memberID" />
+    <result column="ApplicantName" jdbcType="VARCHAR" property="applicantName" />
+
+  </resultMap>
+    <resultMap id="ApplicantDataTableMap" type="com.nit.jobsite.dto.ApplicantMsgDataTable">
+    <result column="ApplicantID" jdbcType="INTEGER" property="applicantID" />
+    <result column="RecruitmentID" jdbcType="INTEGER" property="recruitmentID" />
+    <result column="ApplicantName" jdbcType="VARCHAR" property="applicantName" />
+    <result column="RecruitmentPosition" jdbcType="VARCHAR" property="recruitmentPosition" />
+    <result column="CompanyName" jdbcType="VARCHAR" property="companyName" />
+    <result column="ApplyStatus" jdbcType="INTEGER" property="applyStatus" />
+    <result column="ApplyTime" jdbcType="VARCHAR" property="applyTime" />
+
+  </resultMap>
+  
+    
+  <sql id="Base_Column_List">
+    ApplicantID, MemberID, Name, ApplicantSex, ApplicantName, ApplicantNation, HomePlace, 
+    UserBirthday, ApplicantPolitics, ApplicantSchool, ApplicantEducation, ApplicantMajor, 
+    ApplicantEnglish, ApplicantPhone, ApplicantEmail, ApplicantQQ, ApplicantAddress, 
+    ApplicantStudy, ApplicantProject, ApplicantHonor, ApplicantHobby
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_applicant
+    where ApplicantID = #{applicantID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_applicant
+    where ApplicantID = #{applicantID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nit.jobsite.model.Applicant">
+    <selectKey keyProperty="applicantID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_applicant (MemberID, Name, ApplicantSex, 
+      ApplicantName, ApplicantNation, HomePlace, 
+      UserBirthday, ApplicantPolitics, ApplicantSchool, 
+      ApplicantEducation, ApplicantMajor, ApplicantEnglish, 
+      ApplicantPhone, ApplicantEmail, ApplicantQQ, 
+      ApplicantAddress, ApplicantStudy, ApplicantProject, 
+      ApplicantHonor, ApplicantHobby)
+    values (#{memberID,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{applicantSex,jdbcType=VARCHAR}, 
+      #{applicantName,jdbcType=VARCHAR}, #{applicantNation,jdbcType=VARCHAR}, #{homePlace,jdbcType=VARCHAR}, 
+      #{userBirthday,jdbcType=VARCHAR}, #{applicantPolitics,jdbcType=VARCHAR}, #{applicantSchool,jdbcType=VARCHAR}, 
+      #{applicantEducation,jdbcType=VARCHAR}, #{applicantMajor,jdbcType=VARCHAR}, #{applicantEnglish,jdbcType=VARCHAR}, 
+      #{applicantPhone,jdbcType=VARCHAR}, #{applicantEmail,jdbcType=VARCHAR}, #{applicantQQ,jdbcType=VARCHAR}, 
+      #{applicantAddress,jdbcType=VARCHAR}, #{applicantStudy,jdbcType=VARCHAR}, #{applicantProject,jdbcType=VARCHAR}, 
+      #{applicantHonor,jdbcType=VARCHAR}, #{applicantHobby,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nit.jobsite.model.Applicant">
+    <selectKey keyProperty="applicantID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_applicant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberID != null">
+        MemberID,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="applicantSex != null">
+        ApplicantSex,
+      </if>
+      <if test="applicantName != null">
+        ApplicantName,
+      </if>
+      <if test="applicantNation != null">
+        ApplicantNation,
+      </if>
+      <if test="homePlace != null">
+        HomePlace,
+      </if>
+      <if test="userBirthday != null">
+        UserBirthday,
+      </if>
+      <if test="applicantPolitics != null">
+        ApplicantPolitics,
+      </if>
+      <if test="applicantSchool != null">
+        ApplicantSchool,
+      </if>
+      <if test="applicantEducation != null">
+        ApplicantEducation,
+      </if>
+      <if test="applicantMajor != null">
+        ApplicantMajor,
+      </if>
+      <if test="applicantEnglish != null">
+        ApplicantEnglish,
+      </if>
+      <if test="applicantPhone != null">
+        ApplicantPhone,
+      </if>
+      <if test="applicantEmail != null">
+        ApplicantEmail,
+      </if>
+      <if test="applicantQQ != null">
+        ApplicantQQ,
+      </if>
+      <if test="applicantAddress != null">
+        ApplicantAddress,
+      </if>
+      <if test="applicantStudy != null">
+        ApplicantStudy,
+      </if>
+      <if test="applicantProject != null">
+        ApplicantProject,
+      </if>
+      <if test="applicantHonor != null">
+        ApplicantHonor,
+      </if>
+      <if test="applicantHobby != null">
+        ApplicantHobby,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberID != null">
+        #{memberID,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantSex != null">
+        #{applicantSex,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantName != null">
+        #{applicantName,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantNation != null">
+        #{applicantNation,jdbcType=VARCHAR},
+      </if>
+      <if test="homePlace != null">
+        #{homePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null">
+        #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantPolitics != null">
+        #{applicantPolitics,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantSchool != null">
+        #{applicantSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantEducation != null">
+        #{applicantEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantMajor != null">
+        #{applicantMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantEnglish != null">
+        #{applicantEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantPhone != null">
+        #{applicantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantEmail != null">
+        #{applicantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantQQ != null">
+        #{applicantQQ,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantAddress != null">
+        #{applicantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantStudy != null">
+        #{applicantStudy,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantProject != null">
+        #{applicantProject,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantHonor != null">
+        #{applicantHonor,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantHobby != null">
+        #{applicantHobby,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nit.jobsite.model.Applicant">
+    update tb_applicant
+    <set>
+      <if test="memberID != null">
+        MemberID = #{memberID,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantSex != null">
+        ApplicantSex = #{applicantSex,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantName != null">
+        ApplicantName = #{applicantName,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantNation != null">
+        ApplicantNation = #{applicantNation,jdbcType=VARCHAR},
+      </if>
+      <if test="homePlace != null">
+        HomePlace = #{homePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="userBirthday != null">
+        UserBirthday = #{userBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantPolitics != null">
+        ApplicantPolitics = #{applicantPolitics,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantSchool != null">
+        ApplicantSchool = #{applicantSchool,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantEducation != null">
+        ApplicantEducation = #{applicantEducation,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantMajor != null">
+        ApplicantMajor = #{applicantMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantEnglish != null">
+        ApplicantEnglish = #{applicantEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantPhone != null">
+        ApplicantPhone = #{applicantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantEmail != null">
+        ApplicantEmail = #{applicantEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantQQ != null">
+        ApplicantQQ = #{applicantQQ,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantAddress != null">
+        ApplicantAddress = #{applicantAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantStudy != null">
+        ApplicantStudy = #{applicantStudy,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantProject != null">
+        ApplicantProject = #{applicantProject,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantHonor != null">
+        ApplicantHonor = #{applicantHonor,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantHobby != null">
+        ApplicantHobby = #{applicantHobby,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ApplicantID = #{applicantID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nit.jobsite.model.Applicant">
+    update tb_applicant
+    set MemberID = #{memberID,jdbcType=INTEGER},
+      Name = #{name,jdbcType=VARCHAR},
+      ApplicantSex = #{applicantSex,jdbcType=VARCHAR},
+      ApplicantName = #{applicantName,jdbcType=VARCHAR},
+      ApplicantNation = #{applicantNation,jdbcType=VARCHAR},
+      HomePlace = #{homePlace,jdbcType=VARCHAR},
+      UserBirthday = #{userBirthday,jdbcType=VARCHAR},
+      ApplicantPolitics = #{applicantPolitics,jdbcType=VARCHAR},
+      ApplicantSchool = #{applicantSchool,jdbcType=VARCHAR},
+      ApplicantEducation = #{applicantEducation,jdbcType=VARCHAR},
+      ApplicantMajor = #{applicantMajor,jdbcType=VARCHAR},
+      ApplicantEnglish = #{applicantEnglish,jdbcType=VARCHAR},
+      ApplicantPhone = #{applicantPhone,jdbcType=VARCHAR},
+      ApplicantEmail = #{applicantEmail,jdbcType=VARCHAR},
+      ApplicantQQ = #{applicantQQ,jdbcType=VARCHAR},
+      ApplicantAddress = #{applicantAddress,jdbcType=VARCHAR},
+      ApplicantStudy = #{applicantStudy,jdbcType=VARCHAR},
+      ApplicantProject = #{applicantProject,jdbcType=VARCHAR},
+      ApplicantHonor = #{applicantHonor,jdbcType=VARCHAR},
+      ApplicantHobby = #{applicantHobby,jdbcType=VARCHAR}
+    where ApplicantID = #{applicantID,jdbcType=INTEGER}
+  </update>
+  <select id="getApplicantNameList"  resultType="java.lang.String" parameterType="java.lang.Integer">
+    select 
+    ApplicantName
+    from tb_applicant
+    where MemberID = #{memberID,jdbcType=INTEGER} 
+  </select>
+  
+  <insert id="insertApplicantName">
+  insert
+  into tb_applicant
+  set ApplicantName = #{name,jdbcType=VARCHAR},
+  MemberID = #{memberID,jdbcType=INTEGER}
+  
+  
+  </insert>
+   <select id="checkApplicantName"  resultType="java.lang.String">
+    select 
+    ApplicantName
+    from tb_applicant
+    where MemberID = #{memberID,jdbcType=INTEGER} and ApplicantName = #{name,jdbcType=VARCHAR}
+  </select>
+   <select id="getApplicantData"  resultMap="BaseResultMap">
+    select 
+	<include refid="Base_Column_List" />
+    from tb_applicant
+    where MemberID = #{memberID,jdbcType=INTEGER} and ApplicantName = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="getApplicantMsgList"  resultMap="ApplicantMsgMap" parameterType="java.lang.Integer">
+    select 
+    ApplicantID,MemberID,ApplicantName
+    from tb_applicant
+    where MemberID = #{memberID,jdbcType=INTEGER} 
+  </select>
+   <select id="getApplicantDatatable"  resultMap="ApplicantDataTableMap" parameterType="java.lang.Integer">
+ 
+    SELECT
+	r.RecruitmentPosition,
+	a.ApplicantName,
+	c.CompanyName,
+	i.ApplyStatus,
+	i.ApplyTime,
+	i.ApplicantID,
+	i.RecruitmentID
+	FROM
+	tb_recruitment AS r ,
+	tb_applicant AS a ,
+	tb_company AS c ,
+	tb_info AS i
+	WHERE
+	a.MemberID = #{memberID,jdbcType=INTEGER} AND
+	a.ApplicantID = i.ApplicantID AND
+	i.RecruitmentID = r.RecruitmentID AND
+	r.CompanyID = c.CompanyID
+	    
+  </select>
+ <select id="getRecruitmentDatatable"  resultMap="ApplicantDataTableMap" parameterType="java.lang.Integer">
+ 
+	SELECT
+	r.RecruitmentPosition,
+	a.ApplicantName,
+	i.ApplyStatus,
+	i.ApplyTime,
+	i.ApplicantID,
+	i.RecruitmentID
+	FROM
+	tb_recruitment AS r ,
+	tb_applicant AS a ,
+	tb_info AS i
+	WHERE
+	r.CompanyID = #{companyID,jdbcType=INTEGER} AND
+	r.RecruitmentID = i.RecruitmentID AND
+	i.ApplicantID = a.ApplicantID
+
+	    
+  </select>
+  
+</mapper>

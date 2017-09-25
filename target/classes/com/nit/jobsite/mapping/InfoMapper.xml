@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nit.jobsite.dao.InfoMapper">
+  <resultMap id="BaseResultMap" type="com.nit.jobsite.model.Info">
+    <id column="ApplicantID" jdbcType="INTEGER" property="applicantID" />
+    <id column="RecruitmentID" jdbcType="INTEGER" property="recruitmentID" />
+    <result column="InfoID" jdbcType="INTEGER" property="infoID" />
+    <result column="ApplyTime" jdbcType="VARCHAR" property="applyTime" />
+    <result column="ApplyStatus" jdbcType="INTEGER" property="applyStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ApplicantID, RecruitmentID, InfoID, ApplyTime, ApplyStatus
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.nit.jobsite.model.InfoKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_info
+    where ApplicantID = #{applicantID,jdbcType=INTEGER}
+      and RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.nit.jobsite.model.InfoKey">
+    delete from tb_info
+    where ApplicantID = #{applicantID,jdbcType=INTEGER}
+      and RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.nit.jobsite.model.Info">
+    <selectKey keyProperty="infoID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_info (ApplicantID, RecruitmentID, ApplyTime, 
+      ApplyStatus)
+    values (#{applicantID,jdbcType=INTEGER}, #{recruitmentID,jdbcType=INTEGER}, #{applyTime,jdbcType=VARCHAR}, 
+      #{applyStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.nit.jobsite.model.Info">
+    <selectKey keyProperty="infoID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tb_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="applicantID != null">
+        ApplicantID,
+      </if>
+      <if test="recruitmentID != null">
+        RecruitmentID,
+      </if>
+      <if test="applyTime != null">
+        ApplyTime,
+      </if>
+      <if test="applyStatus != null">
+        ApplyStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="applicantID != null">
+        #{applicantID,jdbcType=INTEGER},
+      </if>
+      <if test="recruitmentID != null">
+        #{recruitmentID,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null">
+        #{applyStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nit.jobsite.model.Info">
+    update tb_info
+    <set>
+      <if test="infoID != null">
+        InfoID = #{infoID,jdbcType=INTEGER},
+      </if>
+      <if test="applyTime != null">
+        ApplyTime = #{applyTime,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null">
+        ApplyStatus = #{applyStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ApplicantID = #{applicantID,jdbcType=INTEGER}
+      and RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nit.jobsite.model.Info">
+    update tb_info
+    set InfoID = #{infoID,jdbcType=INTEGER},
+      ApplyTime = #{applyTime,jdbcType=VARCHAR},
+      ApplyStatus = #{applyStatus,jdbcType=INTEGER}
+    where ApplicantID = #{applicantID,jdbcType=INTEGER}
+      and RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  </update>
+  <select id="checkIsPost" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+  select MemberID 
+  from tb_applicant a
+  where a.ApplicantID = (select ApplicantID from tb_info where RecruitmentID = #{recruitmentID})
+  
+  </select>
+  <update id="setInfo" parameterType="com.nit.jobsite.model.Info">
+  update tb_info 
+  set ApplyStatus = 1
+  where ApplicantID = #{applicantID,jdbcType=INTEGER}
+      and RecruitmentID = #{recruitmentID,jdbcType=INTEGER}
+  
+  </update>
+</mapper>
