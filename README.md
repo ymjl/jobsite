@@ -1,5 +1,5 @@
 # jobsite
-##仿拉钩招聘网站,大三java web课 大作业.
+## 仿拉钩招聘网站,大三java web课 大作业.
 
 利用ssm框架练手的java web完整项目。
 
